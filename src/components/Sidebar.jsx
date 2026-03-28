@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 
-const navItems = [
+const backendNav = [
   { label: 'Overview', path: '/', icon: '🏠' },
   { section: 'ARCHITECTURE' },
   { label: 'System Architecture', path: '/architecture', icon: '🏗️' },
@@ -19,9 +19,34 @@ const navItems = [
   { label: 'Learning Roadmap', path: '/roadmap', icon: '🗺️' },
 ];
 
+const frontendNav = [
+  { label: 'Overview', path: '/fe', icon: '🏠' },
+  { section: 'STRUCTURE' },
+  { label: 'Architecture', path: '/fe/architecture', icon: '🏗️' },
+  { label: 'Components', path: '/fe/components', icon: '🧩' },
+  { label: 'Pages & Routing', path: '/fe/pages', icon: '📄' },
+  { section: 'DATA & API' },
+  { label: 'State & API Layer', path: '/fe/state', icon: '🔄' },
+  { label: 'Tech Stack', path: '/fe/tech-stack', icon: '🛠️' },
+  { section: 'QUALITY' },
+  { label: 'Testing Strategy', path: '/fe/testing', icon: '🧪' },
+  { label: 'Frontend Roadmap', path: '/fe/roadmap', icon: '🗺️' },
+];
+
 export default function Sidebar({ isOpen, onClose }) {
   const location = useLocation();
   const sidebarRef = useRef(null);
+
+  // Determine active tab from the current route
+  const isFrontendRoute = location.pathname.startsWith('/fe');
+  const [activeTab, setActiveTab] = useState(isFrontendRoute ? 'frontend' : 'backend');
+
+  // Sync tab with route when navigating directly via URL
+  useEffect(() => {
+    setActiveTab(location.pathname.startsWith('/fe') ? 'frontend' : 'backend');
+  }, [location.pathname]);
+
+  const navItems = activeTab === 'frontend' ? frontendNav : backendNav;
 
   useEffect(() => {
     if (isOpen) {
@@ -43,6 +68,24 @@ export default function Sidebar({ isOpen, onClose }) {
         <div className="sidebar-brand-tagline">CODE · CONNECT · CREATE</div>
       </div>
 
+      {/* Tab Switcher */}
+      <div className="sidebar-tab-switcher">
+        <button
+          className={`sidebar-tab ${activeTab === 'backend' ? 'active' : ''}`}
+          onClick={() => setActiveTab('backend')}
+        >
+          <span className="sidebar-tab-icon">☕</span>
+          Backend
+        </button>
+        <button
+          className={`sidebar-tab ${activeTab === 'frontend' ? 'active' : ''}`}
+          onClick={() => setActiveTab('frontend')}
+        >
+          <span className="sidebar-tab-icon">⚛️</span>
+          Frontend
+        </button>
+      </div>
+
       <nav className="sidebar-nav">
         {navItems.map((item, i) => {
           if (item.section) {
@@ -60,7 +103,7 @@ export default function Sidebar({ isOpen, onClose }) {
                 `sidebar-link ${isActive ? 'active' : ''}`
               }
               onClick={() => onClose?.()}
-              end={item.path === '/'}
+              end={item.path === '/' || item.path === '/fe'}
             >
               <span className="sidebar-link-icon">{item.icon}</span>
               {item.label}
