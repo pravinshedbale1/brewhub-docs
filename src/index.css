@@ -878,6 +878,77 @@ body {
   margin-top: 10px;
 }
 
+.timeline__header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.timeline__duration {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  white-space: nowrap;
+}
+
+.timeline__milestone {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--green);
+  padding: 6px 12px;
+  background: rgba(34, 197, 94, 0.06);
+  border: 1px solid rgba(34, 197, 94, 0.15);
+  border-radius: 8px;
+  margin: 8px 0;
+  line-height: 1.5;
+}
+
+.timeline__milestone span {
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.timeline__weekly {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 10px;
+  padding: 10px 14px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  border: 1px solid var(--card-border);
+}
+
+.timeline__week-item {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.timeline__week-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--orange);
+  min-width: 50px;
+  flex-shrink: 0;
+  font-weight: 600;
+}
+
+.timeline__week-task {
+  color: var(--text-secondary);
+}
+
 /* ── Concept Tracker ── */
 .concept-tracker__filters {
   display: flex;
